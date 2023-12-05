@@ -19,6 +19,7 @@ if (!user || !password) {
 
 (async () => {
   // Inicia el navegador
+  try {
   const browser = await puppeteer.launch({ headless: false });
   const page = await browser.newPage();
   await page.setRequestInterception(true);
@@ -46,7 +47,7 @@ if (!user || !password) {
 
   // le damos a siguiente
   await page.click('[type="submit"]');
-  await new Promise((r) => setTimeout(r, 1000));
+  await new Promise((r) => setTimeout(r, 5000));
 
   // le damos a Si queremos recordar clave
   await page.click('[type="submit"]');
@@ -66,6 +67,9 @@ if (!user || !password) {
   setTimeout(() => {
     browser.close();
   }, 60000);
+} catch (error) {
+  console.error("Error en el script:", error);
+}
 })();
 
 
